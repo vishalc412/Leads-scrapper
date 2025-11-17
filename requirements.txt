@@ -1,0 +1,35 @@
+# Core dependencies
+python>=3.9
+
+# Web scraping
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.1.0
+
+# Data validation
+pydantic>=2.5.0
+
+# AI/ML APIs
+anthropic>=0.18.0
+openai>=1.12.0
+
+# API framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# Database
+# For PostgreSQL support (optional):
+# psycopg2-binary>=2.9.9
+
+# Utilities
+python-dotenv>=1.0.0
+
+# Testing (optional, for development)
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+
+# Code quality (optional, for development)
+black>=24.0.0
+flake8>=7.0.0
+mypy>=1.8.0

@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Leads Scraper API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leads-scraper-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_MODEL=${AI_MODEL:-claude-sonnet-4-5-20250929}
+      - STORAGE_BACKEND=sqlite
+      - DATA_DIR=/app/data
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_WORKERS=4
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: PostgreSQL database (uncomment to use instead of SQLite)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: leads-scraper-db
+  #   environment:
+  #     - POSTGRES_DB=leads_scraper
+  #     - POSTGRES_USER=leads_user
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+
+  # Optional: Redis cache
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: leads-scraper-cache
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   restart: unless-stopped
+
+volumes:
+  # postgres_data:
+  # redis_data:
+  data:
+  logs:
