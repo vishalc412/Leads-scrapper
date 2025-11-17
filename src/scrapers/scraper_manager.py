@@ -183,7 +183,7 @@ class ScraperManager:
                 source="aggregated",
                 query=SearchQuery(
                     keywords=[],
-                    location={"city": None, "state": None, "country": None}
+                    location=Location()
                 ),
                 leads=[],
                 total_found=0,
@@ -218,7 +218,7 @@ class ScraperManager:
 
         return ScraperResult(
             source="aggregated",
-            query=results[0].query if results else SearchQuery(keywords=[], location={}),
+            query=results[0].query if results else SearchQuery(keywords=[], location=Location()),
             leads=all_leads,
             total_found=total_found,
             total_scraped=len(all_leads),

@@ -1,5 +1,15 @@
 """
 Indeed job board scraper.
+
+NOTE: Indeed has anti-scraping measures. This scraper may get blocked (HTTP 403).
+For production use, consider:
+- Using Indeed's official API (requires partnership)
+- Implementing proxy rotation
+- Adding delays between requests
+- Using authenticated sessions
+- Respecting robots.txt
+
+This implementation is for educational purposes and demonstrates the scraping pattern.
 """
 
 import logging

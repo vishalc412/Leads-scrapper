@@ -93,13 +93,11 @@ class AppConfig(BaseModel):
 
     # Job search parameters
     enabled_job_boards: List[str] = Field(
-        default=["indeed", "linkedin", "glassdoor", "monster"],
+        default=["indeed", "linkedin", "mock"],
         description="Enabled job boards for scraping"
     )
 
-    class Config:
-        """Pydantic configuration."""
-        use_enum_values = True
+    model_config = {"use_enum_values": True}
 
 
 # Global configuration instance

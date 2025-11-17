@@ -25,13 +25,14 @@ logger = logging.getLogger(__name__)
 
 def setup_search_query(args) -> SearchQuery:
     """Build SearchQuery from CLI arguments."""
-    keywords = args.keywords.split(',') if isinstance(args.keywords, str) else args.keywords
+    # keywords is already a list from nargs='+'
+    keywords = args.keywords if isinstance(args.keywords, list) else [args.keywords]
 
     location = Location(
         city=args.city,
         state=args.state,
         country=args.country,
-        remote=args.remote
+        remote=args.remote if hasattr(args, 'remote') else False
     )
 
     return SearchQuery(
