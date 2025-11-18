@@ -4,16 +4,46 @@ A Python framework for scraping and analyzing job leads using AI. Designed as an
 
 ## Features
 
+- **Web UI + API**: Modern web interface with FastAPI backend
 - **Multi-Platform Scraping**: Support for Indeed, LinkedIn (with mock scraper for testing)
-- **AI-Powered Analysis**: Analyze leads using Anthropic Claude or OpenAI GPT models
-- **RESTful API**: FastAPI backend for integration
-- **CLI Tool**: Command-line interface for search and analysis
+- **AI-Powered Analysis**: Intelligent lead analysis using Claude (Anthropic) or GPT (OpenAI)
+- **Docker Ready**: Separate containers for frontend and backend - production ready
+- **RESTful API**: FastAPI backend with full OpenAPI documentation
 - **Multiple Deployment Options**: Run locally, Docker, AWS, or Azure
-- **SQLite Database**: Stores leads and analyses (PostgreSQL support available)
+- **Data Persistence**: SQLite (default) with PostgreSQL support
+- **Extensible**: Framework ready for sales leads, project requirements, and more
 
-## Quick Start
+## Quick Start with Docker (Recommended)
 
-### Installation
+The easiest way to run the complete application:
+
+```bash
+# 1. Clone and enter directory
+git clone https://github.com/vishalc412/Leads-scrapper.git
+cd Leads-scrapper
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env: Add ANTHROPIC_API_KEY or OPENAI_API_KEY
+
+# 3. Deploy everything
+./deploy.sh
+
+# 4. Open in browser
+# Web UI: http://localhost
+# API Docs: http://localhost/api/docs
+```
+
+See [DOCKER.md](DOCKER.md) for detailed Docker documentation and troubleshooting.
+
+## Manual Installation (Without Docker)
+
+### Prerequisites
+
+- Python 3.9 or higher
+- API key for Anthropic (Claude) or OpenAI (GPT)
+
+### Steps
 
 ```bash
 # Clone repository

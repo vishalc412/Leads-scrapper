@@ -1,14 +1,12 @@
 version: '3.8'
 
 services:
-  # Leads Scraper API
-  api:
+  # Backend API
+  backend:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: leads-scraper-api
-    ports:
-      - "8000:8000"
+      dockerfile: backend.Dockerfile
+    container_name: leads-scraper-backend
     environment:
       - ENVIRONMENT=production
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
@@ -18,44 +16,35 @@ services:
       - DATA_DIR=/app/data
       - API_HOST=0.0.0.0
       - API_PORT=8000
-      - API_WORKERS=4
     volumes:
       - ./data:/app/data
-      - ./logs:/app/logs
+    networks:
+      - leads-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 10s
 
-  # Optional: PostgreSQL database (uncomment to use instead of SQLite)
-  # postgres:
-  #   image: postgres:15-alpine
-  #   container_name: leads-scraper-db
-  #   environment:
-  #     - POSTGRES_DB=leads_scraper
-  #     - POSTGRES_USER=leads_user
-  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   restart: unless-stopped
+  # Frontend UI
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: leads-scraper-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - leads-network
+    restart: unless-stopped
 
-  # Optional: Redis cache
-  # redis:
-  #   image: redis:7-alpine
-  #   container_name: leads-scraper-cache
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis_data:/data
-  #   restart: unless-stopped
+networks:
+  leads-network:
+    driver: bridge
 
 volumes:
-  # postgres_data:
-  # redis_data:
   data:
-  logs:
