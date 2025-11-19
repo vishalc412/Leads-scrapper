@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads Scraper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Job Leads Scraper</h1>
+            <p class="subtitle">Search and analyze job opportunities with AI</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Search Form -->
+            <section class="card">
+                <h2>Search Job Leads</h2>
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="keywords">Keywords *</label>
+                        <input type="text" id="keywords" placeholder="e.g. Python, Django, React" required>
+                        <small>Comma-separated skills or job titles</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="San Francisco">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" placeholder="CA">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="maxResults">Max Results</label>
+                            <input type="number" id="maxResults" value="20" min="1" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="remote">
+                                Remote Only
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="searchBtn">
+                        <span class="btn-text">Search Leads</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Results -->
+            <section class="card" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="results-stats" id="resultsStats"></div>
+                </div>
+                <div id="resultsContainer"></div>
+            </section>
+
+            <!-- Saved Leads -->
+            <section class="card">
+                <div class="results-header">
+                    <h2>Saved Leads</h2>
+                    <button class="btn btn-secondary" onclick="loadSavedLeads()">Refresh</button>
+                </div>
+                <div id="savedLeadsContainer">
+                    <p class="text-muted">Click refresh to load saved leads</p>
+                </div>
+            </section>
+
+            <!-- Analysis -->
+            <section class="card" id="analysisSection" style="display: none;">
+                <h2>AI Analysis</h2>
+                <div id="analysisContainer"></div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Leads Scraper v1.0 | <a href="/docs" target="_blank">API Docs</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

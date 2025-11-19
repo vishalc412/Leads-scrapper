@@ -1,0 +1,22 @@
+{
+  "skills": [
+    "Python",
+    "Django",
+    "FastAPI",
+    "React",
+    "PostgreSQL",
+    "Docker",
+    "AWS",
+    "Machine Learning"
+  ],
+  "experience_years": 5,
+  "education": "Bachelor's in Computer Science",
+  "preferences": "Remote-first companies with focus on AI/ML or fintech. Interested in companies with good work-life balance and opportunities for growth.",
+  "desired_role_level": "Senior Software Engineer",
+  "industries": ["Technology", "Fintech", "AI/ML", "SaaS"],
+  "salary_expectation": {
+    "min": 120000,
+    "max": 180000,
+    "currency": "USD"
+  }
+}

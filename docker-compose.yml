@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: leads-scraper-backend
+    environment:
+      - ENVIRONMENT=production
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_MODEL=${AI_MODEL:-claude-sonnet-4-5-20250929}
+      - STORAGE_BACKEND=sqlite
+      - DATA_DIR=/app/data
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      - ./data:/app/data
+    networks:
+      - leads-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Frontend UI
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: leads-scraper-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - leads-network
+    restart: unless-stopped
+
+networks:
+  leads-network:
+    driver: bridge
+
+volumes:
+  data:
